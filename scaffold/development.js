@@ -1,6 +1,10 @@
 import _ from 'lodash' // eslint-disable-line
 import Queue from 'queue-async'
 import Game from '../server/models/Game'
+import TvFreq from '../server/models/TvFreq'
+import TvFreqRange from '../server/models/TvFreqRange'
+import calcTvFreq from './functions/calcTvFreq'
+import calcTvFreqRanges from './functions/calcTvFreqRanges'
 
 const toScaffold = {
   users: {
@@ -31,12 +35,30 @@ export default function scaffold(callback) {
   console.log('Inserting', games.length, 'games')
   _.forEach(games, (_game, i) => {
     queue.defer(callback => {
-      if (_game.teamnameopp === 'Nobody Expects the Boot' || _game.teamname === 'Nobody Expects the Boot') {
-        console.dir(_game, {colors: true})
-      }
       const game = new Game(_game)
       models.games.push(game)
       game.save(callback)
+    })
+  })
+
+  models.tvFreqs = []
+  console.log('Inserting', games.length, 'games')
+  _.forEach(calcTvFreq(games), (_tvFreq, i) => {
+    queue.defer(callback => {
+      const tvFreq = new TvFreq(_tvFreq)
+      models.tvFreqs.push(tvFreq)
+      tvFreq.save(callback)
+    })
+  })
+
+  models.tvFreqRanges = []
+  const tvFreqRanges = calcTvFreqRanges(freqs)
+  console.log('tvFreqRanges', tvFreqRanges)
+  _.forEach(tvFreqRanges, _tvFreqRange => {
+    queue.defer(callback => {
+      const tvFreqRange = new TvFreqRange(_tvFreqRange)
+      models.tvFreqRanges.push(tvFreqRange)
+      tvFreqRange.save(callback)
     })
   })
 

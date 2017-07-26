@@ -1,0 +1,15 @@
+export default {
+  label: 'Text',
+  newTeamCutoff: 'Integer',
+  roundingInterval: 'Integer',
+  lowerTv: 'Integer',
+  upperTv: 'Integer',
+  tvdiff: 'Integer',
+  count: 'Integer',
+  wins: 'Integer',
+  draws: 'Integer',
+  losses: 'Integer',
+  winPercent: 'Decimal',
+  gamePercent: 'Decimal',
+  createdDate: 'DateTime',
+}

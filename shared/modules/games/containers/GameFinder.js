@@ -77,11 +77,6 @@ export default class SearchPageContainer extends Component {
       store.dispatch(loadGamesPage(page, query, callback))
     })
 
-    queue.defer(callback => {
-      if (games.get('locations').get('timestamp')) return callback()
-      store.dispatch(loadGameLocations(config.get('url'), callback))
-    })
-
     queue.await(err => {
       if (err) store.dispatch(push(location.pathname, {}))
       callback()
@@ -112,7 +107,7 @@ export default class SearchPageContainer extends Component {
   }
 
   hasData() {
-    return this.props.games.get('locations').get('timestamp')
+    return !this.props.games.get('loading')
   }
 
   render() {
@@ -122,9 +117,6 @@ export default class SearchPageContainer extends Component {
     const itemsPerPage = +(location.query.perPage || ITEMS_PER_PAGE)
     const searchString = location.query.search || ''
     const filterQuery = parseFilterQuery(location.query.filters)
-
-    //todo
-    const locations = games.get('locations').get('locations').toJSON()
 
     return (
       <div>
@@ -144,10 +136,6 @@ export default class SearchPageContainer extends Component {
           totalItems={this.props.totalItems}
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
-
-          // cities={cities}
-          // countries={countries}
-          locations={locations}
 
           headerProps={{className: 'games', title: 'Games', subtitle: `Scope out the awesome games`}}
           rowComponent={GameRow}

@@ -36,8 +36,6 @@ export default function getRoutes(store) {
 
       <Route path="people/:profileId" sidebar component={require('./modules/profiles/containers/Profile')} />
 
-      <Route path="organisations/:organisationId" sidebar component={require('./modules/organisations/containers/OrganisationDetail')} />
-
       <Route path="games" sidebar component={require('./modules/games/containers/GameFinder')} />
       <Route path="games/:gameId" sidebar component={require('./modules/games/containers/GameDetail')} />
 
