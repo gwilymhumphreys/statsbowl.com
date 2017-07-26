@@ -2,6 +2,7 @@ import path from 'path'
 import initdb from 'fl-initdb'
 
 export default function initDB(callback) {
+  if (process.env.SKIP_INIT_DB) return callback()
   initdb({
     User: require('./models/User'),
     modelTypes: [require('fl-auth-server').AccessToken, require('fl-auth-server').RefreshToken],

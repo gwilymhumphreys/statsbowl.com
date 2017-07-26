@@ -39,6 +39,8 @@ export default function getRoutes(store) {
       <Route path="games" sidebar component={require('./modules/games/containers/GameFinder')} />
       <Route path="games/:gameId" sidebar component={require('./modules/games/containers/GameDetail')} />
 
+      <Route path="tv" sidebar component={require('./modules/charts/containers/WinPercentByTv')} />
+
       <Route path="/p/:slug" component={require('./modules/app/containers/StaticPage')} />
     </Route>
   )

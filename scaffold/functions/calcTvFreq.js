@@ -20,7 +20,7 @@ export default (games, newTeamCutoff=1000) => {
   _.forEach(games, game => {
     const tvdiff = Math.abs(+game.tvdiffhome)
 
-    if (+game.valuehome <= 1000 && +game.valueaway <= 1000) {
+    if (+game.valuehome <= newTeamCutoff && +game.valueaway <= newTeamCutoff) {
       skipCount++
       return
     }

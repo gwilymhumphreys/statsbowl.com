@@ -1,37 +1,19 @@
 import _ from 'lodash' // eslint-disable-line
-import request from 'superagent'
-import Game from '../../models/Game'
+import TvFreq from '../../models/TvFreq'
 
 export const TYPES = {
-  GAME_LOAD: 'GAME_LOAD',
-  GAME_COUNT: 'GAME_COUNT',
+  TV_FREQ_LOAD: 'TV_FREQ_LOAD',
+  TV_FREQ_COUNT: 'TV_FREQ_COUNT',
 }
 
 /*
-  Games
+  TvFreqs
 */
-export function loadGames(query, callback) {
-  query.$sort = '-createdDate'
+export function loadTvFreqs(chart, query, callback) {
   return {
-    type: TYPES.GAME_LOAD,
-    request: Game.cursor(query),
-    callback,
-  }
-}
-
-export function loadGamesPage(page, query, callback) {
-  return {
-    page,
-    type: TYPES.GAME_LOAD,
-    request: Game.cursor(query),
-    callback,
-  }
-}
-
-export function countGames(query, callback) {
-  return {
-    type: TYPES.GAME_COUNT,
-    request: Game.cursor(_.merge({}, query, {$count: true})),
+    chart,
+    type: TYPES.TV_FREQ_LOAD,
+    request: TvFreq.cursor(query),
     callback,
   }
 }
