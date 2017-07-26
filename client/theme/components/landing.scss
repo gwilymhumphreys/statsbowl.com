@@ -1,0 +1,96 @@
+.landing {
+  text-align: center;
+
+  .navbar {
+    padding: 5px 0 30px;
+  }
+
+  .header {
+    text-align: center;
+    background: rgba(0, 0, 0, 0) radial-gradient(ellipse farthest-corner at 0 0 , #42c299 50%, #438DC1 100%) repeat scroll 0 0;
+    padding-top: 200px;
+    padding-bottom: 140px;
+    width: 100%;
+    h1 {
+      line-height: 1.5;
+      color: #eee;
+      padding: 40px 30px 15px;
+      font-size: 40px;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      .big {
+        font-size: 100px;
+      }
+    }
+    p.big {
+      margin-top: 30px;
+      font-size: 26px;
+    }
+    h2, p {
+      color: #eee;
+    }
+    .btn-info {
+      margin: 50px 0;
+      padding: 15px 50px;
+      border-radius: 5px;
+      font-size: 150%;
+    }
+    h4 {
+      color: #fff;
+    }
+  }
+
+  .cta2 {
+    background: #fff;
+    h2 {
+      color: $brand-danger;
+      padding: 80px 0 30px;
+      font-size: 250%;
+    }
+    .btn-danger {
+      border-radius: 5px;
+      margin: 30px auto 110px;
+      font-size: 150%;
+      padding: 15px 50px;
+    }
+  }
+
+  @media(max-width: $screen-lg-min) {
+    .header {
+      padding-top: 160px;
+      h1 {
+        padding: 0;
+      }
+    }
+  }
+
+  @media(max-width: $screen-md-min) {
+
+    .header {
+      padding-top: 100px;
+      padding-bottom: 0;
+      h1 {
+        font-size: 30px;
+        padding: 40px 20px 20px;
+        margin-bottom: 40px;
+        .org-name {
+          font-size: 45px;
+        }
+      }
+      h4 {
+        color: #fff;
+        margin-bottom: 50px;
+      }
+      p.big {
+        margin-bottom: 20px;
+        font-size: 22px;
+      }
+      .btn-info {
+        margin: 20px 0 60px;
+        padding: 15px 50px;
+        border-radius: 5px;
+        font-size: 150%;
+      }
+    }
+  }
+
+}

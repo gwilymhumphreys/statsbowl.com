@@ -1,0 +1,236 @@
+@import './components/colours.scss';
+@import './components/mixins.scss';
+
+@import './components/avatar.scss';
+@import './components/dashboard.scss';
+@import './components/footer.scss';
+@import './components/forms.scss';
+@import './components/games.scss';
+@import './components/landing.scss';
+@import './components/loader.scss';
+@import './components/navbar.scss';
+@import './components/register.scss';
+@import './components/profile.scss';
+@import './components/search.scss';
+@import './components/select.scss';
+@import './components/slider.scss';
+@import './components/steps.scss';
+
+html, body, #react-view, #app-view {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  height: 100%;
+  font-weight: 300;
+
+  a:focus, a:active,
+  button:focus, button:active {
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+.app-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+
+  // Smooth scrolling for the content pane on ios
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+}
+
+h1, h2, h3, h4, h5, p {
+  word-wrap: break-word;
+}
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-bottom: 15px;
+}
+h4, .h4, h5, .h5 {
+  margin-bottom: 10px;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  cursor: pointer;
+}
+
+p.last {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #fafafa;
+  margin: 40px auto;
+
+  &.compact {
+    margin-top: 40px;
+  }
+  &.compacter {
+    margin-top: 50px;
+    margin-bottom: 40px;
+  }
+}
+
+.modal-content {
+  padding: 30px;
+}
+
+.subheading {
+  text-align: center;
+  font-size: 18px;
+  color: $gray-light;
+  margin-bottom: 30px;
+}
+
+.text-light {
+  font-size: $font-size-small;
+  color: $gray-light;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.pad {
+  padding: 15px;
+}
+
+.bullets {
+  i {
+    color: $brand-primary;
+    padding-right: 7px;
+  }
+  .col-xs-6 {
+    margin-bottom: 10px;
+  }
+}
+
+.btn-linkedin {
+  box-shadow: none !important;
+  background-image: url(/public/images/linkedin.png);
+  color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 60px;
+  margin-bottom: 30px;
+
+  &:active, &:focus {
+    background-image: url(/public/images/linkedin-active.png);
+    color: transparent;
+  }
+  &:hover {
+    background-image: url(/public/images/linkedin-hover.png);
+    color: transparent;
+  }
+
+  &.btn-linkedin-signup {
+    background-image: url(/public/images/linkedin-signup.png);
+
+    &:active, &:focus {
+      background-image: url(/public/images/linkedin-active-signup.png);
+    }
+    &:hover {
+      background-image: url(/public/images/linkedin-hover-signup.png);
+    }
+  }
+}
+
+.btn {
+  border-radius: 3px;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  i.fa-spin {
+    margin-right: 5px;
+  }
+  i:not(.btn-default) {
+    color: #fff !important;
+  }
+}
+
+.btn-sm .glyphicon {
+  font-size: 10px;
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.labels {
+  margin-bottom: 10px;
+  font-size: $font-size-h5;
+  font-weight: normal;
+}
+
+.border-row {
+  position: relative;
+  a.remove {
+    transition: all 0.5s;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+  }
+  a.undelete {
+    float: right;
+  }
+  .deleted {
+    color: $gray-lightish;
+  }
+  &.form-row .form-group {
+    margin-bottom: 0;
+  }
+}
+.border-row:not(:last-child) {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: solid 1px $gray-lighterer;
+}
+
+.hover-row {
+  .visible-hover {
+    opacity: 0;
+    @include transition(all 0.3s);
+  }
+  .updated {
+    position: absolute;
+    right: 15px;
+    top: 0;
+    background: rgba(255, 255, 255, 0.8);
+  }
+}
+@media(min-width: $screen-sm-min) {
+  .hover-row:hover .visible-hover {
+    opacity: 1;
+  }
+}
+.updated {
+  font-size: $font-size-small;
+  color: $gray-light;
+  text-align: right;
+}
+
+.color-primary { color: $brand-primary; }
+.color-info { color: $brand-info; }
+.color-warning { color: $brand-warning; }
+.color-danger { color: $brand-danger; }
+.color-success { color: $brand-success; }
+
+.bg-primary { background: $brand-primary; }
+.bg-info { background: $brand-info; }
+.bg-warning { background: $brand-warning; }
+.bg-danger { background: $brand-danger; }
+.bg-success { background: $brand-success; }
+
+.alert.alert-info a {
+  color: darken($brand-info, 20%);
+  &:hover, &:active { color: darken($brand-info, 10%); }
+}

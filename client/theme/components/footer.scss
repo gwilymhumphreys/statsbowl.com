@@ -1,0 +1,31 @@
+footer {
+  background: $brand-info;
+  top: 0;
+  color: #fff;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: $font-size-small;
+
+  .copyright{
+    text-align: left;
+  }
+  .terms-privacy {
+    text-align: right;
+  }
+  a {
+    color: #fff;
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  @media(max-width: $screen-md-min) {
+    .copyright {
+      text-align: center;
+    }
+    .terms-privacy  {
+      padding: 10px 15px 0;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+
+.navbar {
+  border: none;
+  background: transparent;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  .logo {
+    padding-top: 3px;
+    width: 100px;
+  }
+
+  a, .navbar-brand, .navbar-nav > li > a {
+    color: #fff;
+    font-weight: 300;
+  }
+
+  @media(max-width: $screen-sm-min) {
+    .navbar-collapse.collapse {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

@@ -1,0 +1,51 @@
+
+.register {
+
+  h2 {
+    &.header {
+      margin-bottom: 40px;
+    }
+  }
+
+  .text-light {
+    margin-top: 10px;
+  }
+
+  .fa-info {
+    border: 1px solid #fff;
+    border-radius: 100%;
+    padding: 3px 7px;
+    margin-right: 10px;
+  }
+
+  .alert-info {
+    border-radius: 5px;
+    background-color: lighten($brand-info, 15%);
+    border-color: lighten($brand-info, 10%);
+  }
+
+  .alert {
+    margin-bottom: 0;
+    padding: 10px 5px 10px 10px;
+  }
+
+  .back-btn {
+    text-align: left;
+  }
+
+  .next-btn {
+    text-align: right;
+  }
+
+  .radio-inline {
+    font-size: 14px;
+  }
+
+  .alert {
+    margin-bottom: 20px;
+  }
+
+}
+.register, .login {
+
+}

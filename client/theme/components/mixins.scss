@@ -1,0 +1,51 @@
+
+@mixin bshadow($size: 10px, $opacity: 0.1) {
+  // @include box-shadow(2px 2px $size rgba(0, 0, 0, $opacity));
+  @include box-shadow(0 7px 14px rgba(50,50,93, 0.1), 0 3px 6px rgba(0,0,0,.08));
+}
+
+@mixin filter($filter-type, $filter-amount) {
+  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+  -moz-filter: $filter-type+unquote('(#{$filter-amount})');
+  -ms-filter: $filter-type+unquote('(#{$filter-amount})');
+  -o-filter: $filter-type+unquote('(#{$filter-amount})');
+  filter: $filter-type+unquote('(#{$filter-amount})');
+}
+
+@mixin panelColours($colour: $brand-primary, $darken: 10%, $lighten: 10%) {
+  .panel-heading {
+    // background: $colour;
+    background: linear-gradient(to right, $colour, darken($colour, 2%));
+    a {
+      color: #fff;
+    }
+    // a.active {
+    //   color: darken($colour, 20%);
+    // }
+    a:hover {
+      color: lighten($colour, 30%);
+    }
+  }
+
+  h1, h2, h3, h4, h5, .panel-body a:not(.btn):not(.skill) {
+    color: darken($colour, $darken);
+    &.remove {
+      color: $brand-danger;
+    }
+  }
+  .panel-body a:not(.btn):not(.skill):hover {
+    color: lighten($colour, $lighten);
+    &.remove {
+      color: darken($brand-danger, 20%);
+    }
+  }
+  .bullets i {
+    color: $colour;
+  }
+}
+
+
+@mixin gradientBg($colour: $brand-primary, $darken: 5%, $lighten: 5%) {
+  background: $colour;
+  background: radial-gradient(ellipse farthest-corner at 0 0, lighten($colour, $lighten) 20%, darken($colour, $darken) 100%);
+}

@@ -1,0 +1,144 @@
+.form-page {
+  min-height: 300px;
+  margin-bottom: 80px;
+
+  header {
+    @include gradientBg($brand-primary);
+    padding: 20px 0;
+    margin-bottom: 40px;
+    color: #fff;
+
+    h1 {
+      color: #fff;
+      margin: 60px 0;
+      font-weight: 400;
+      @media (max-width: $screen-sm-min) {
+        font-size: $font-size-h2;
+      }
+    }
+  }
+
+  .panel-form {
+    margin-top: -60px;
+
+    @media (min-width: $screen-md-min) {
+      width: 630px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .panel-heading {
+      background: #fff;
+      padding-top: 20px;
+    }
+
+    .actions {
+      margin-top: 40px;
+      .btn.btn-primary {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &.mentor {
+    header {
+      background: $brand-success;
+    }
+  }
+
+  @media (max-width: $screen-sm-min) {
+    h2 {
+      margin-bottom: 0;
+      font-size: 20px;
+    }
+    .text-inner {
+      visibility: hidden;
+    }
+    header {
+      padding: 0;
+    }
+    .step-header .step {
+      height: 40px !important;
+      margin-bottom: 20px;
+    }
+  }
+
+}
+
+.quill {
+  .ql-editor {
+    min-height: 150px;
+  }
+
+  .form-quill {
+    border: 2px solid #e7e7e7;
+    background-color : #ffffff;
+
+  }
+
+  .ql-container {
+    border: 2px solid #e7e7e7;
+    background-color: #ffffff;
+    border-radius: 00 3px 3px;
+  }
+
+  .ql-toolbar {
+    background-color: $gray-lighter;
+  }
+}
+
+.has-feedback label ~ .form-control-feedback {
+  // top: 32px;
+  // top: inherit;
+  // bottom: 0;
+}
+
+label.control-label {
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin-top: 2px;
+}
+
+.help-block {
+  font-size: $font-size-small;
+}
+
+.split-datetime {
+  label {
+    display: block;
+  }
+  .date, .time {
+    display: inline-block;
+  }
+  .date {
+    width: 120px;
+  }
+  .time {
+    width: 120px;
+    margin-left: 10px;
+  }
+  @media (max-width: $screen-sm-min) {
+    .date, .time {
+      display: block;
+    }
+    .time {
+      margin: 10px 0 0;
+    }
+  }
+}
+
+/* Remove mobile browser shadow */
+input[type=text], input[type=email], input[type=password], textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.public-DraftEditor-content {
+  min-height: 220px;
+  font-family: $font-family-base;
+}

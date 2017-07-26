@@ -1,0 +1,63 @@
+
+.game-row.border-row.clickable {
+  margin: 0;
+}
+
+.game-row {
+  padding: 20px 15px;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    a {
+      color: $games-colour;
+      &:hover, &:active {
+        color: lighten($games-colour, 20%);
+      }
+    }
+  }
+  h5 {
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 11px;
+  }
+  .updated.hidden-xs {
+    margin-bottom: 5px;
+  }
+
+  .loc {
+    font-size: $font-size-small;
+    font-weight: 300;
+    color: $gray;
+  }
+
+  .startup-row-stats {
+    margin-top: 20px;
+  }
+  .details-row {
+    margin-top: 20px;
+  }
+  .info-item {
+    margin-bottom: 10px;
+  }
+
+
+  @media (max-width: $screen-sm-min) {
+    .info-item {
+      margin-bottom: 10px;
+    }
+    .info-row {
+      margin-bottom: 0;
+    }
+    .when-where {
+      margin-top: 10px;
+    }
+    .flex-start-row {
+      display: block;
+    }
+    .updated {
+      text-align: left;
+    }
+    .apply { margin-top: 10px; }
+  }
+}

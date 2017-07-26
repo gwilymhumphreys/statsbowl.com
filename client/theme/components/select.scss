@@ -1,0 +1,38 @@
+.Select {
+
+  .Select-control {
+    border-width: 2px;
+    border-color: #e7e7e7;
+  }
+
+  &.is-open .Select-control {
+    border-color: $brand-info;
+    z-index: 99;
+  }
+
+  &.is-focused:not(.is-open) > .Select-control {
+    border-color: $brand-info;
+    @include box-shadow(none);
+  }
+
+  .Select-value-label {
+    color: $gray;
+  }
+
+  .profile-option {
+    .avatar {
+      margin-right: 10px;
+    }
+    line-height: 50px;
+  }
+}
+
+.has-success .Select .Select-control {
+  border-color: $brand-primary;
+}
+.has-error .Select .Select-control {
+  border-color: $brand-danger;
+}
+.has-warning .Select .Select-control {
+  border-color: $brand-warning;
+}

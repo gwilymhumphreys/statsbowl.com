@@ -1,0 +1,27 @@
+.slider {
+  width: 100%;
+  max-width: 500px;
+  height: 3px;
+}
+
+.slider .handle {
+  background-color: $brand-primary;
+  color: #fff;
+  cursor: pointer;
+  top: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+}
+.slider .handle.active {
+  background-color: $gray-lighter;
+}
+
+.slider .bar {
+  height: 3px;
+  background: $gray-lighter;
+}
+
+.slider.multi .bar.bar-1 {
+  background: $brand-primary;
+}
