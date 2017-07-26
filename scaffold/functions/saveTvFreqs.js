@@ -24,6 +24,7 @@ export default callback => {
 
     _.forEach(roundingIntervals, roundingInterval => {
       const tvFreqRanges = calcTvFreqRanges(freqs, roundingInterval)
+      console.log('tvFreqRanges', tvFreqRanges)
 
       _.forEach(tvFreqRanges, _tvFreqRange => {
         queue.defer(callback => {
@@ -32,7 +33,6 @@ export default callback => {
         })
       })
     })
-
   })
 
   queue.await(callback)

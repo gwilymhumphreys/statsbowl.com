@@ -2,8 +2,7 @@ import _ from 'lodash' // eslint-disable-line
 import React, {PropTypes} from 'react'
 import {Link} from 'react-router'
 import {Grid, Row, Col} from 'react-bootstrap'
-import D3LineGraph from './D3LineGraph'
-
+import C3Chart from 'react-c3js'
 
 export default class WinPercentByTv extends React.Component {
 
@@ -14,7 +13,17 @@ export default class WinPercentByTv extends React.Component {
   render() {
     const {data} = this.props
     console.log('data', data)
-    const area = true
+
+    const chartData = {
+      json: data,
+      keys: {
+        x: 'tvdiff',
+        value: ['tvdiff', 'winPercent'],
+      },
+      type: 'bar',
+    }
+
+    console.log('chartData', chartData)
 
     return (
       <div>
@@ -22,7 +31,9 @@ export default class WinPercentByTv extends React.Component {
           <Row>
             <Col xs={12}>
               <div style={{width: 960, height: 500}}>
-                <D3LineGraph data={data} area={area} xField="tvdiff" yField="winPercent" />
+
+                <C3Chart data={chartData} />
+
               </div>
             </Col>
           </Row>

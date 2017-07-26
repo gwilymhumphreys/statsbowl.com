@@ -28,18 +28,12 @@ export default class AppNavbar extends Component {
         </NavDropdown>
       )
     }
-    else {
-      loginDisplay = [
-        <LinkContainer className="nav-login" key={1} to="/register"><NavItem>Register</NavItem></LinkContainer>,
-        <NavItem key={2} onClick={this.props.openLoginModal}>Sign in</NavItem>,
-      ]
-    }
 
     return (
       <Navbar fluid>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/" onlyActiveOnIndex>Logo</Link>
+            <Link to="/" onlyActiveOnIndex>statsbowl</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

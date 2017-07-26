@@ -100,7 +100,7 @@ export default class App extends Component {
         <div>
           <Navbar openLoginModal={this.openLoginModal} />
           {this.props.children}
-          <Footer />
+          {/*<Footer />*/}
           <LoginModal show={this.state.showModal} onHide={this.closeLoginModal} />
         </div>
       )
