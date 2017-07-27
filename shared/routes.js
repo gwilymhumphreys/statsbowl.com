@@ -40,6 +40,11 @@ export default function getRoutes(store) {
       <Route path="games/:gameId" sidebar component={require('./modules/games/containers/GameDetail')} />
 
       <Route path="tv" sidebar component={require('./modules/charts/containers/WinPercentByTv')} />
+      <Route path="tv-range" sidebar component={require('./modules/charts/containers/WinPercentByTvRange')} />
+      <Route path="tv-range/:roundingInterval" sidebar component={require('./modules/charts/containers/WinPercentByTvRange')} />
+      <Route path="tv-diff" sidebar component={require('./modules/charts/containers/TvDiffHistogram')} />
+      <Route path="tv-diff/:roundingInterval" sidebar component={require('./modules/charts/containers/TvDiffHistogram')} />
+      <Route path="tv-diff/:roundingInterval/:newTeamCutoff" sidebar component={require('./modules/charts/containers/TvDiffHistogram')} />
 
       <Route path="/p/:slug" component={require('./modules/app/containers/StaticPage')} />
     </Route>

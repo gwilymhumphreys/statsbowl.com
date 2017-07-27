@@ -7,22 +7,28 @@ export default class WinPercentByTv extends React.Component {
 
   static propTypes = {
     data: PropTypes.array,
+    roundingInterval: PropTypes.number,
   }
 
   render() {
-    const {data} = this.props
+    const {data, roundingInterval} = this.props
 
     const chartProps = {
       data: {
         json: data,
         keys: {
-          x: 'tvdiff',
-          value: ['tvdiff', 'winPercent'],
+          x: 'upperTv',
+          value: ['upperTv', 'winPercent'],
         },
+        labels: true,
         type: 'bar',
       },
       axis: {
         x: {
+          tick: {
+            culling: false,
+            format: x => `${+x-roundingInterval} - ${x}`,
+          },
           label: 'TV advantage',
         },
         y: {
@@ -33,12 +39,13 @@ export default class WinPercentByTv extends React.Component {
 
     console.log('chartProps', chartProps)
 
+
     return (
       <div>
         <Grid fluid className="section">
           <Row>
             <Col xs={12}>
-              <h2>Win percent by tv</h2>
+              <h2>Win percent by tv range ({roundingInterval})</h2>
               <C3Chart {...chartProps} />
             </Col>
           </Row>
@@ -47,3 +54,6 @@ export default class WinPercentByTv extends React.Component {
     )
   }
 }
+    // import Correlation from 'node-correlation'
+    // const correlation = Correlation.calc(_.map(data, 'upperTv'), _.map(data, 'winPercent'))
+    // {/*<h5>Correlation: {correlation}</h5>*/}

@@ -3,3 +3,12 @@ path {
   fill: none;
   stroke: $gray;
 }
+
+.c3-tooltip-container {
+  padding: 10px;
+  border-radius: 3px;
+  background: #fff;
+  td {
+    padding: 10px;
+  }
+}

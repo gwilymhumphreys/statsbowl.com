@@ -234,3 +234,9 @@ hr {
   color: darken($brand-info, 20%);
   &:hover, &:active { color: darken($brand-info, 10%); }
 }
+
+.section {
+  margin-top: 60px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}

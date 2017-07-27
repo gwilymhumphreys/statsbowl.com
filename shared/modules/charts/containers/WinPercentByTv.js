@@ -36,11 +36,9 @@ export default class WinPercentByTvContainer extends React.Component {
     if (!tvData) return (<Loader />)
 
     return (
-      <section className="landing">
-        <WinPercentByTv
-          data={tvData.toJSON()}
-        />
-      </section>
+      <WinPercentByTv
+        data={tvData.toJSON()}
+      />
     )
   }
 }
