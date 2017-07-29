@@ -1,6 +1,7 @@
 import _ from 'lodash' // eslint-disable-line
-import React, {PropTypes} from 'react'
-import {Input} from 'fl-react-utils'
+import React from 'react'
+import PropTypes from 'prop-types'
+import {FormGroup, ControlLabel, FormControl} from 'react-bootstrap'
 
 export default class SelectFilter extends React.Component {
 
@@ -19,7 +20,7 @@ export default class SelectFilter extends React.Component {
 
   query() { return this.state.query }
 
-  defaultValue() {
+  value() {
     const query = this.props.filterQuery[this.props.filter.field]
     if (!query) return this.props.filter.default || ''
     return query
@@ -35,11 +36,12 @@ export default class SelectFilter extends React.Component {
     const {filter, label, options} = this.props
 
     return (
-      <Input type="select" label={label} name={filter.field} defaultValue={this.defaultValue()} onChange={this.handleChange}>
-        <option value=""></option>
-        {_.map(options, option => (<option key={option.id || option.name} value={option.id}>{option.name}</option>))}
-      </Input>
+      <FormGroup controlId={filter.field}>
+        <ControlLabel>{label}</ControlLabel>
+        <FormControl componentClass="select" value={this.value()} onChange={this.handleChange}>
+          {_.map(options, option => (<option key={option.value} value={option.value}>{option.label}</option>))}
+        </FormControl>
+      </FormGroup>
     )
   }
 }
-

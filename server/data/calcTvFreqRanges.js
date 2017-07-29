@@ -18,6 +18,7 @@ export default (tvFreqs, roundingInterval=50) => {
 
   const totalGames = _.sumBy(tvFreqs, f => f.count)
   console.log('totalGames', totalGames)
+
   // Link home + away team tvFreqs and file them under their 'vs' key, which seems to be how they're linked to leagueMatches
   _.forEach(tvFreqs, tvFreq => {
     const upperTv = tvFreq.tvdiff + (roundingInterval - (tvFreq.tvdiff % roundingInterval))

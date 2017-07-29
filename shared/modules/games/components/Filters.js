@@ -1,13 +1,20 @@
 import _ from 'lodash' // eslint-disable-line
-import React, {PropTypes} from 'react'
-import {Row, Col} from 'react-bootstrap'
-import Collapse from 'react-collapse'
+import React from 'react'
+import PropTypes from 'prop-types'
 import warning from 'warning'
+import Collapse from 'react-collapse'
 import RangeSlider from './filters/RangeSlider'
 import Select from './filters/Select'
+import Checkbox from './filters/Checkbox'
 import Checkboxes from './filters/Checkboxes'
 import DateRange from './filters/DateRange'
 import ReactSelect from './filters/ReactSelect'
+
+function concatMerge(objValue, srcValue) {
+  if (_.isArray(objValue)) {
+    return objValue.concat(srcValue)
+  }
+}
 
 export default class Filters extends React.Component {
 
@@ -15,38 +22,39 @@ export default class Filters extends React.Component {
     filters: PropTypes.array.isRequired,
     filterQuery: PropTypes.object.isRequired,
     onFilter: PropTypes.func.isRequired,
-    onReset: PropTypes.func.isRequired,
+    onReset: PropTypes.func,
   }
 
   // filters prop is used for initial values only
   constructor(props) {
     super()
     this._renderFilters = {}
-    this.state = {filters: props.filters}
+    this.state = {filters: props.filters, isOpened: true}
   }
 
-  filterId = filter => filter.id || filter.label
+  // make sure that the filters box is hidden on small screens and visible on large
+  componentDidMount() {
+    this.setState({isOpened: window.innerWidth > 480}) //eslint-disable-line
+  }
+
+  filterId = filter => filter.id || filter.field || filter.label
 
   handleFilter = (filter, _query) => {
     setTimeout(() => {
-
       let finalQuery = {}
       _.forEach(this._renderFilters, (component, id) => {
         const query = this.filterId(filter) === id ? _query : component.query()
-        if (query) finalQuery = _.merge(finalQuery, query)
+        if (query) finalQuery = _.mergeWith(finalQuery, query, concatMerge)
       })
-
       this.props.onFilter(finalQuery)
     })
   }
 
-  toggleFilterGroupFn = i => () => {
-    const filters = this.state.filters
-    filters[i].visible = !filters[i].visible
-    this.setState({filters})
+  handleToggleOpened = () => {
+    this.setState({isOpened: !this.state.isOpened})
   }
 
-  renderFilter(filter, index) {
+  renderFilterControl = (filter, index) => {
     const {filterQuery} = this.props
 
     const filterProps = {
@@ -76,6 +84,10 @@ export default class Filters extends React.Component {
         break
 
       case 'checkbox':
+        component = (<Checkbox {...filterProps} />)
+        break
+
+      case 'checkboxes':
         component = (<Checkboxes {...filterProps} />)
         break
 
@@ -91,43 +103,35 @@ export default class Filters extends React.Component {
   }
 
   renderFilterGroup = (filterGroup, index) => {
-    if (filterGroup.collapse) {
-      return (
-        <Row key={index} className="filter-group">
-          <a onClick={this.toggleFilterGroupFn(index)} className={`group-title ${filterGroup.visible ? 'active' : ''}`}>
-            {filterGroup.heading} <i className={`fa fa-${filterGroup.visible ? 'caret-down' : 'caret-right'}`} />
-          </a>
-          <Col xs={12}>
-            <Collapse keepCollapsedContent isOpened={!!filterGroup.visible}>
-              <Row className="filter-group-filters">
-                {filterGroup.filters.map((filter, i) => this.renderFilter(filter, i))}
-              </Row>
-            </Collapse>
-          </Col>
-        </Row>
-      )
-    }
+    if (!filterGroup.filters) return this.renderFilterControl(filterGroup, index)
 
     return (
-      <Row key={index} className="filter-group">
+      <div key={index} className="filter-group">
         <div className="filter-group-filters">
-          {filterGroup.filters.map((filter, i) => this.renderFilter(filter, i))}
+          {filterGroup.filters.map(this.renderFilterControl)}
         </div>
-      </Row>
+      </div>
     )
   }
 
   render() {
+    const isOpened = this.state.isOpened
     return (
-      <form onSubmit={e => e.preventDefault()} className="filters">
-        {this.state.filters.map((filter, i) => (
-          filter.filters ? this.renderFilterGroup(filter, i) : this.renderFilter(filter)
-        ))}
-        <Row className="actions">
-          <Col xs={12}>
-            <a className="pull-right clear" onClick={this.props.onReset}><i className="fa fa-times" /> Clear</a>
-          </Col>
-        </Row>
+      <form onSubmit={e => e.preventDefault()}>
+        <h3 className="hidden-xs">Filter results</h3>
+        <h3 className="visible-xs"><a onClick={this.handleToggleOpened}>Filter results <i className={`fa fa-${isOpened ? 'caret-up' : 'caret-down'}`} /></a></h3>
+
+        <Collapse keepCollapsedContent isOpened={isOpened}>
+          <div className="filter-controls">
+            {this.state.filters.map(this.renderFilterGroup)}
+
+            {this.props.onReset ? (
+              <div className="actions">
+                <a className="pull-right clear" onClick={this.props.onReset}><i className="fa fa-times" /> Clear</a>
+              </div>
+            ) : null}
+          </div>
+        </Collapse>
       </form>
     )
   }

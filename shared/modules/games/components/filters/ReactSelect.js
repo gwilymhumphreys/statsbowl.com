@@ -1,96 +1,108 @@
 import _ from 'lodash' // eslint-disable-line
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Select from 'react-select'
-import {Col} from 'react-bootstrap'
 
 export default class ReactSelectFilter extends React.Component {
 
   static propTypes = {
-    multi: PropTypes.bool,
     filter: PropTypes.object.isRequired,
     options: PropTypes.array.isRequired,
     filterQuery: PropTypes.object.isRequired,
     onFilter: PropTypes.func.isRequired,
   }
 
-  constructor() {
+  constructor(props) {
     super()
-    this.state = {selectedValues: []}
+    const selectedValues = this.selectedValuesFromProps(props)
+    this.state = {selectedValues}
   }
 
   componentWillReceiveProps(newProps) {
-    const {options} = newProps
-    const valuesFromQuery = this.valueFromQuery(newProps)
-    const selectedValues = []
-
-    _.forEach(options, (option, index) => {
-      const opts = option.options(newProps)
-      const value = _.intersection(valuesFromQuery, _.map(opts, 'value'))
-      selectedValues[index] = value
-    })
+    const selectedValues = this.selectedValuesFromProps(newProps)
     this.setState({selectedValues})
   }
 
   // Only update if the filter query has changed externally
   shouldComponentUpdate(newProps) {
-    return !_.isEqual(this.valueFromQuery(this.props), this.valueFromQuery(newProps))
+    if (newProps.filter && newProps.filter.shouldComponentUpdate) {
+      if (newProps.filter.shouldComponentUpdate(newProps, this.props)) return true
+    }
+    return !_.isEqual(this.valuesFromQuery(this.props), this.valuesFromQuery(newProps))
   }
 
-  valueFromQuery(props) {
+  selectOptions = (option, props) => _.isFunction(option.selectOptions) ? option.selectOptions(props) : option.selectOptions
+
+  selectedValuesFromProps(newProps) {
+    const {options} = newProps
+    const valuesFromQuery = this.valuesFromQuery(newProps)
+    const selectedValues = []
+
+    _.forEach(options, (option, index) => {
+      const opts = this.selectOptions(option, newProps)
+      const value = _.intersection(valuesFromQuery, _.map(opts, 'value'))
+      selectedValues[index] = value
+    })
+    return selectedValues
+  }
+
+  valuesFromQuery(props) {
     const query = props.filterQuery
     const field = props.filter.field
-    if (props.filter.valueFromQuery) return props.filter.valueFromQuery(query)
+    if (props.filter.valuesFromQuery) return props.filter.valuesFromQuery(query, props)
     if (_.isObject(query)) {
-      if (query.$or) {
-        return _(query.$or).map(searchObj => searchObj[field] ? searchObj[field].$search : null).compact().value()
-      }
-      else if (query[field]) {
+      if (query[field]) {
         return query[field].$in || query[field]
+      }
+      else if (query.$or || query.$and) {
+        const list = query.$or || query.$and
+        return _(list).map(searchObj => searchObj[field] ? (searchObj[field].$search || searchObj[field]) : null).compact().value()
       }
     }
     return []
   }
 
-  query() { return this.state.query }
-
   //todo: upgrade react-select to 1.x when it's stable (ie when multi works)
   // valuesStr will then be an array of values rather than a comma separated string
-  handleFilterChange = (valuesStr, index) => {
-    const {filter} = this.props
+  handleFilterChangeFn = (option, index) => valuesStr => {
     const values = valuesStr.length ? valuesStr.split(',') : []
     const selectedValues = _.clone(this.state.selectedValues)
     selectedValues[index] = values
 
-    const combinedArray = _.flatten(selectedValues)
-    let query = null
+    this.setState({selectedValues}, () => {
+      this.props.onFilter(this.props.filter, this.query())
+    })
+  }
 
-    if (combinedArray.length) {
-      query = filter.query ? filter.query(combinedArray) : {$or: combinedArray.map(value => ({[filter.field]: {$search: value}}))}
-    }
+  query() {
+    const {filter} = this.props
+    const {selectedValues} = this.state
+    const flatValues = _.flatten(selectedValues)
 
-    this.setState({query, selectedValues})
-    this.props.onFilter(filter, query)
+    if (!flatValues.length) return {}
+    if (filter.query) return filter.query(flatValues, {selectedValues, props: this.props})
+    return {$or: flatValues.map(value => ({[filter.field]: {$search: value}}))}
   }
 
   render() {
-    const {options, multi} = this.props
+    const {options} = this.props
+
     return (
       <div>
         {options.map((option, index) => {
+          const value = option.multi ? this.state.selectedValues[index] : (this.state.selectedValues[index] && this.state.selectedValues[index][0])
           return (
-            <Col key={index} sm={4}>
-              <div className="form-group">
-                <label className="control-label">{option.label}</label>
-                <Select
-                  options={option.options(this.props)}
-                  onChange={values => this.handleFilterChange(values, index)}
-                  value={this.state.selectedValues[index]}
-                  simpleValue
-                  // joinValues
-                  multi={multi}
-                />
-              </div>
-            </Col>
+            <div key={index} className="form-group">
+              <label className="control-label">{option.label}</label>
+              <Select
+                options={this.selectOptions(option, this.props)}
+                onChange={this.handleFilterChangeFn(option, index)}
+                value={value}
+                simpleValue
+                // joinValues
+                multi={option.multi}
+              />
+            </div>
           )}
         )}
       </div>

@@ -7,8 +7,8 @@ import TvFreq from '../../server/models/TvFreq'
 import TvFreqRange from '../../server/models/TvFreqRange'
 
 export default callback => {
-  const queue = new Queue()
 
+  const queue = new Queue()
   const cutoffs = [0, 1000]
   const roundingIntervals = [50, 100]
 
