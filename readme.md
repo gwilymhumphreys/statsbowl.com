@@ -1,21 +1,18 @@
-# FounderLab base project for Frameworkstein web apps
+## Visualisation & analysis of Blood Bowl 2 game data
 
-A single page Node app with user login. Use this when starting a new project.
 
-Uses React, Redux, BackboneORM, Bootstrap, Webpack.
 
-Requires: node, postgres, redis
+##### To run locally
 
-##### Basic instructions
-```
-# 1. First install dependencies
-$ npm install
+1. Install node, postgres, redis
 
-# 2a. Start the node server in one terminal
-$ npm start-dev
+2. Install dependencies
+`$ npm install`
 
-# 2b. Start the webpack development server in another
-$ npm run client-watch
-```
+3a. Start the node server in one terminal
+`$ npm run start-dev`
+
+3b. Start the webpack development server in another
+`$ npm run client-watch`
 
 The app will start and can be found at [http://localhost:2090](http://localhost:2090) 

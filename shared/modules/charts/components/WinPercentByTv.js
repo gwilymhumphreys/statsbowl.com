@@ -47,7 +47,7 @@ export default class WinPercentByTv extends React.Component {
           <Row>
             <Col xs={12}>
               <h2>Win percent by tv</h2>
-              <C3Chart {...chartProps} />
+              <C3Chart unloadBeforeLoad {...chartProps} />
             </Col>
           </Row>
         </Grid>

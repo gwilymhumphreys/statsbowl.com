@@ -101,7 +101,7 @@ export default class WinPercentByTv extends React.Component {
                       <p className="text-light">Excluding games where both teams are {newTeamCutoff} tv or less</p>
                     ): null}
 
-                    <C3Chart {...chartProps} />
+                    <C3Chart unloadBeforeLoad {...chartProps} />
                   </Col>
                 </Row>
               </Grid>
@@ -115,9 +115,9 @@ export default class WinPercentByTv extends React.Component {
                       <p className="text-light">Excluding games where both teams are {newTeamCutoff} tv or less</p>
                     ): null}
 
-                    <C3Chart {...pieChartProps} />
+                    <C3Chart unloadBeforeLoad {...pieChartProps} />
                     <br />
-                    <C3Chart {...barChartProps} />
+                    <C3Chart unloadBeforeLoad {...barChartProps} />
 
                   </Col>
                 </Row>
